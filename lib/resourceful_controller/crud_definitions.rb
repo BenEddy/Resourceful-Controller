@@ -65,7 +65,7 @@ module ResourcefulController
 
       def define_create
         define_method :create do
-          set_resource resource_class.new(params[:"#{resource_name}"])
+          set_resource resource_class.new(resource_params)
 
           respond_to do |format|
             if get_resource.save
@@ -101,7 +101,7 @@ module ResourcefulController
           set_resource _update_query.call(params)
 
           respond_to do |format|
-            if get_resource.update_attributes(params[:"#{resource_name}"])
+            if get_resource.update_attributes(resource_params)
               format.html { update_redirect }
               format.json { head :ok }
             else
