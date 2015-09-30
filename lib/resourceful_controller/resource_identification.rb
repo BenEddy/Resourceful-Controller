@@ -4,8 +4,11 @@ module ResourcefulController
 
     delegate :resource_name, :resources_name, :resource_class, :to => :klass
 
-    module ClassMethods
+    def resource_params
+      send(:"#{resource_name}_params")
+    end
 
+    module ClassMethods
       def resource_name
         resources_name.singularize
       end
@@ -17,7 +20,6 @@ module ResourcefulController
       def resource_class
         resource_name.classify.constantize
       end
-
     end
   end
 end
